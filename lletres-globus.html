@@ -66,6 +66,8 @@ h2.sec{margin-top:24px}
 .voice button{cursor:pointer;border:2px solid var(--ink);border-radius:10px;background:#fff;padding:3px 10px;font-weight:600;margin-left:6px}
 .center{text-align:center}
 .games{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px;font-weight:600;color:var(--muted)}
+.games a{color:var(--ink);background:#fff;border:3px solid var(--ink);border-radius:14px;padding:6px 12px;text-decoration:none;box-shadow:0 4px 0 var(--ink)}
+.games a.cur{background:var(--mc);color:#fff}
 
 /* joc */
 .stars-row{font-size:26px;letter-spacing:1px;background:#fff;border:3px solid var(--ink);border-radius:999px;padding:4px 14px;box-shadow:var(--shadow);white-space:nowrap}
@@ -171,6 +173,7 @@ canvas#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:non
 
       <div class="center" style="margin-top:20px"><button class="btn big" id="startBtn">▶ A jugar!</button></div>
     </div>
+    <div class="games">Més jocs: <a class="cur" href="lletres-globus.html">🎈 Globus de lletres</a><a href="lletres-carrera.html">🏁 Carrera de lletres</a></div>
   </section>
 
   <!-- ===== JOC ===== -->
@@ -334,6 +337,7 @@ function spawn(delay){
     const [c1,c2]=BALLOON_COLORS[rnd(BALLOON_COLORS.length)];d.style.setProperty('--c',c1);d.style.setProperty('--c2',c2);d.style.setProperty('--bw',bw+'px');
     const b={el:d,L:x,x:Math.max(0,Math.min(W-bw,lanes[i]*laneW+(Math.random()-.5)*laneW*.25)),p:-(delay/1000+i*.9)/G.lv.rise,phase:Math.random()*6,alive:true,h:bw*2.3,correct:x===L};
     d.addEventListener('pointerdown',e=>{e.preventDefault();hit(b);});
+    d.addEventListener('touchstart',e=>{e.preventDefault();hit(b);},{passive:false});d.addEventListener('click',()=>hit(b));
     d.style.transform=`translate(${b.x}px,${sky.clientHeight+20}px)`;d.style.visibility='hidden';
     sky.appendChild(d);G.balloons.push(b);
   });
